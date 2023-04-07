@@ -47,6 +47,7 @@ class simulationTable:
     
     def iat_ass(self):
         output=dict()
+        error=dict()
         output[1]=0
         for i in range(2,self.cust+1):
             tmp=random.randint(1,10**self.p1)
@@ -55,11 +56,14 @@ class simulationTable:
             for k,v in self.iat.range.items():
                 if tmp in v:
                     output[i]=k
+                else:
+                    error[i]=['rnd=',tmp,'key=',k,'value=',v]
+        # print(error)
         return output
     def st_ass(self):
         output=dict()
         for i in range(1,self.cust+1):
-            tmp=random.randint(10,10**self.p2)
+            tmp=random.randint(1,10**self.p2)
             if tmp == 10**self.p2:
                 tmp=0
             for k,v in self.st.range.items():
@@ -68,8 +72,15 @@ class simulationTable:
         return output
     
     def calc_arrival_time(self):
-        pass
+        p=0
+        output=dict()
+        for i in range(1,self.cust+1):
+            output[i]=self.iat_ass()[i]+p
+            print(output[i])
+            p=output[i]
+        return output
 
 
 stAss=simulationTable(5,iat,1,st,2)
-print(stAss.iat_ass(),'\n',stAss.st_ass(),end="")
+print(stAss.iat_ass(),'\n',stAss.st_ass(),'\n',end="")
+# print(stAss.calc_arrival_time())
