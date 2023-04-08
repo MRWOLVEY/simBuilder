@@ -1,5 +1,6 @@
-# iat_dist={1:0.5,3:0.3,6:0.2}
-# st_dist={1:0.35,3:0.55,5:0.10}
+# iat_dist={1:0.5,3:0.3,6:0.2} iat-> interarrival time
+# st_dist={1:0.35,3:0.55,5:0.10} st-> service time
+#dist -> distribution prob -> probability
 import random
 class digitTable:
     def __init__(self,dist):
@@ -7,19 +8,19 @@ class digitTable:
         self.p=1
         self.range=dict()
 
-    def cummulative_prop(self,props):
+    def cummulative_prob(self,probs):
         summ=0
         output=dict()
-        for k,v in props.items():
+        for k,v in probs.items():
             summ+=v
             output[k]=summ
         return output
     
     
 
-    def prop_range(self, p=1):
+    def prob_range(self, p=1):
         i = 1
-        cp=self.cummulative_prop(self.dist)
+        cp=self.cummulative_prob(self.dist)
         output = dict()
         for k, v in cp.items():
             o = v * (10 ** p)
@@ -32,7 +33,7 @@ class digitTable:
 
 iat=digitTable({1:0.5,3:0.3,6:0.2})
 st=digitTable({1:0.35,3:0.55,5:0.10})
-# print(iat.prop_range())
+# print(iat.prob_range())
 
 class simulationTable:
     def __init__(self,custNo,iat,p1,st,p2):
@@ -41,8 +42,8 @@ class simulationTable:
         self.st=st
         self.p1=p1
         self.p2=p2
-        iat.prop_range()
-        st.prop_range(2)
+        iat.prob_range()
+        st.prob_range(2)
     
     def iat_assign(self):
         output=dict()
